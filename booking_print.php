@@ -135,7 +135,7 @@ $conn->close();
 
 <div class="flex flex-wrap gap-8 justify-center mt-10 print:mt-8">
     <div class="flex flex-col items-center">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=<?= urlencode($baseUrl . '/booking_print.php?id=' . $row['BookingID'] . '&state=PickupPoint') ?>"
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=<?= urlencode($baseUrl . '/PickupPoint.php?id=' . $row['BookingID'] . '&state=PickupPoint') ?>"
              alt="QR รับตู้" class="rounded shadow"/>
         <div class="text-xs text-gray-600 mt-2">จุดรับตู้ (PickupPoint)</div>
     </div>
@@ -143,14 +143,14 @@ $conn->close();
 if (empty($row['CustomerCode']) || strtoupper($row['CustomerCode']) === 'TOSHIBA') {
     echo '<div class="flex flex-col items-center">
         <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data='
-        . urlencode($baseUrl . '/booking_print.php?id=' . $row['BookingID'] . '&state=InspectionPoint')
+        . urlencode($baseUrl . '/InspectionPoint.php?id=' . $row['BookingID'] . '&state=InspectionPoint')
         . '" alt="QR ตรวจตู้" class="rounded shadow"/>
         <div class="text-xs text-gray-600 mt-2">จุดตรวจตู้ (InspectionPoint)</div>
     </div>';
 }
 ?>
     <div class="flex flex-col items-center">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=<?= urlencode($baseUrl . '/booking_print.php?id=' . $row['BookingID'] . '&state=PortPoint') ?>"
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=<?= urlencode($baseUrl . '/PortPoint.php?id=' . $row['BookingID'] . '&state=PortPoint') ?>"
              alt="QR ท่าเรือ" class="rounded shadow"/>
         <div class="text-xs text-gray-600 mt-2">ท่าเรือ (PortPoint)</div>
     </div>
