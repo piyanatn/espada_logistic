@@ -1,3 +1,27 @@
+<?php 
+session_start();
+   if(!isset($_SESSION)) 
+    { 
+     session_start(); 
+    }      
+ if (!isset($_SESSION["username"])) 
+     {
+    
+          $avatarLetter = strtoupper(mb_substr('', 0, 1, 'UTF-8'));    
+     }else
+        {
+            $username = $_SESSION["username"];
+            $avatarLetter = strtoupper(mb_substr($username, 0, 1, 'UTF-8'));
+        }
+    
+if (isset($_GET["page"])) 
+    {
+      $page = $_GET["page"]; 
+    }else{
+      $page = '';         
+    }
+    
+?>
 <!DOCTYPE html>
 <html lang="th" class="h-full">
 <head>
@@ -6,8 +30,17 @@
     <title>Logistic Landing - Tailwind CSS</title>
     <meta name="description" content="Template HTML5 + Tailwind CSS Responsive">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&display=swap">
+    <style>
+        body {
+            font-family: 'Kanit', sans-serif;
+        }
+    </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 to-blue-200 flex flex-col">
+<body class="min-h-screen bg-gradient-to-br  flex flex-col">
     <!-- Navbar -->
     <nav class="bg-white/90 shadow-lg backdrop-blur-md sticky top-0 z-50">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
@@ -19,10 +52,32 @@
                 <span class="text-2xl font-extrabold text-blue-700 tracking-widest">LOGISTIC</span>
             </div>
             <ul class="hidden md:flex space-x-8 font-medium">
-                <li><a href="#" class="text-blue-700 hover:text-blue-500 transition">หน้าแรก</a></li>
-                <li><a href="#" class="text-blue-700 hover:text-blue-500 transition">บริการ</a></li>
-                <li><a href="#" class="text-blue-700 hover:text-blue-500 transition">เกี่ยวกับเรา</a></li>
-                <li><a href="#" class="text-blue-700 hover:text-blue-500 transition">ติดต่อ</a></li>
+                <?php
+                    if (isset($_SESSION["username"])) 
+                        {
+                          echo '
+                                <li>
+                              
+                                    <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-blue-200 text-blue-800 font-bold text-lg shadow-sm">' . $avatarLetter . '</span>
+                                    <span>' . htmlspecialchars($username) . '</span>
+                             
+                                </li>
+                                ';
+                        }
+
+                ?>                
+                <li><a href="index.php" class="text-blue-700 hover:text-blue-500 transition">หน้าแรก</a></li>
+                <li><a href="index.php?page=tracking" class="text-blue-700 hover:text-blue-500 transition">บริการ</a></li>
+                <li><a href="index.php?page=booking" class="text-blue-700 hover:text-blue-500 transition">จัดการ Booking</a></li>
+                
+                <?php
+                    if (isset($_SESSION["username"])) 
+                        {
+                            echo  "<li><a href=\"#\" id=\"logoutBtn\" class=\"text-blue-700 hover:text-blue-500 transition\">ออกจากระบบ</a></li>";
+                        }
+
+                ?>
+               
             </ul>
             <button class="md:hidden text-blue-700 focus:outline-none">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -32,63 +87,32 @@
             </button>
         </div>
     </nav>
-    <!-- Hero Section -->
-    <section class="flex-1 flex items-center justify-center py-10 px-4">
-        <div class="max-w-3xl w-full bg-white/95 rounded-3xl shadow-2xl p-10 text-center relative overflow-hidden">
-            <!-- Decoration background shape -->
-            <div class="absolute -top-14 -right-14 w-48 h-48 bg-blue-200 rounded-full opacity-30 z-0"></div>
-            <div class="absolute -bottom-10 -left-10 w-32 h-32 bg-blue-100 rounded-full opacity-20 z-0"></div>
-            <div class="relative z-10">
-                <div class="mx-auto w-28 h-28 mb-6 flex items-center justify-center rounded-full bg-gradient-to-tr from-blue-400 via-sky-300 to-blue-200 shadow-lg">
-                    <!-- SVG Truck Icon -->
-                    <svg class="w-16 h-16 text-white drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 48 48">
-                        <rect x="8" y="22" width="22" height="12" rx="2" fill="currentColor" class="text-blue-500"/>
-                        <rect x="30" y="27" width="10" height="7" rx="2" fill="currentColor" class="text-blue-400"/>
-                        <circle cx="15" cy="36" r="3" fill="currentColor" class="text-blue-600"/>
-                        <circle cx="37" cy="36" r="3" fill="currentColor" class="text-blue-600"/>
-                    </svg>
-                </div>
-                <h1 class="text-4xl md:text-5xl font-extrabold text-blue-700 mb-3 tracking-tight">
-                    ระบบโลจิสติกส์<br>ทันสมัย
-                </h1>
-                <p class="text-gray-600 mb-8 text-lg">
-                    ยกระดับธุรกิจขนส่งของคุณด้วยเทคโนโลยีที่ใช้งานง่ายและทันสมัย<br>เทมเพลตนี้ Responsive จริงจัง รองรับทุกหน้าจอ
-                </p>
-                <a href="#" class="inline-block px-8 py-3 bg-gradient-to-r from-blue-500 to-sky-400 text-white text-lg rounded-full font-semibold shadow hover:scale-105 transition">
-                    ทดลองใช้ระบบ
-                </a>
-            </div>
-        </div>
-    </section>
-    <!-- Feature Section -->
-    <section class="container mx-auto px-4 py-12">
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white rounded-2xl p-6 shadow flex flex-col items-center text-center hover:shadow-xl transition">
-                <svg class="w-12 h-12 text-blue-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M2 8l10 6 10-6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M2 8v8a2 2 0 002 2h16a2 2 0 002-2V8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3 class="font-bold text-lg mb-2 text-blue-700">ใช้งานง่าย</h3>
-                <p class="text-gray-500 text-base">UI/UX เน้นใช้งานจริง สะดวกสบาย ไม่ต้องอบรมซ้ำ</p>
-            </div>
-            <div class="bg-white rounded-2xl p-6 shadow flex flex-col items-center text-center hover:shadow-xl transition">
-                <svg class="w-12 h-12 text-green-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M8 12l2 2 4-4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3 class="font-bold text-lg mb-2 text-green-700">ปลอดภัยสูง</h3>
-                <p class="text-gray-500 text-base">ข้อมูลทุกอย่างถูกปกป้องด้วยระบบ Security ระดับสากล</p>
-            </div>
-            <div class="bg-white rounded-2xl p-6 shadow flex flex-col items-center text-center hover:shadow-xl transition">
-                <svg class="w-12 h-12 text-yellow-500 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9l-7-7z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M13 2v7h7" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-                <h3 class="font-bold text-lg mb-2 text-yellow-700">รายงานสวยงาม</h3>
-                <p class="text-gray-500 text-base">ระบบสร้างรายงาน กราฟ ชาร์ต ส่งออกไฟล์ง่ายเว่อร์</p>
-            </div>
-        </div>
-    </section>
+    <?php
+   
+          switch ($page) {
+            case 'tracking':                
+                include('tracking.php');
+                break;                                        
+            case 'login':
+                include('login.php');
+                break;
+            case 'booking':
+                  if (!isset($_SESSION["username"])) 
+                {
+                    include 'login.php';                
+                    break;            
+                } else {               
+                include('booking.php');
+                break;
+                }
+            default:
+                include('tracking.php');
+                break;
+                
+          }
+
+    ?>
+    
     <!-- Footer -->
     <footer class="bg-white shadow-inner py-5 mt-auto">
         <div class="container mx-auto px-4 text-center text-gray-500 text-base">
@@ -97,3 +121,42 @@
     </footer>
 </body>
 </html>
+<script>
+document.getElementById('logoutBtn').addEventListener('click', async function(e) {
+    e.preventDefault();
+    // ยืนยันก่อนออกจากระบบ
+    Swal.fire({
+        title: 'ออกจากระบบ?',
+        text: "คุณต้องการออกจากระบบใช่หรือไม่",
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'ออกจากระบบ',
+        cancelButtonText: 'ยกเลิก',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33'
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            // ส่ง ajax ไป logout.php
+            try {
+                const res = await fetch('logout.php', { method: 'POST' });
+                const text = await res.text();
+                if (text.trim() === 'success') {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'ออกจากระบบสำเร็จ',
+                        showConfirmButton: false,
+                        timer: 1200
+                    }).then(() => {
+                        window.location.href = 'index.php'; // หรือหน้า login
+                    });
+                } else {
+                    Swal.fire('ผิดพลาด', 'ออกจากระบบไม่สำเร็จ!', 'error');
+                }
+            } catch (err) {
+                Swal.fire('ผิดพลาด', 'เกิดข้อผิดพลาดในการเชื่อมต่อ!', 'error');
+            }
+        }
+    });
+});
+</script>
+
