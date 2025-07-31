@@ -3,10 +3,10 @@
 // db_connect.php
 // ใช้งาน: include หรือ require_once 'db_connect.php';
 
-$DB_HOST = 'espadatechnology.com';    // หรือ IP ของเซิร์ฟเวอร์
-$DB_USER = 'espada_logistic';         // ชื่อผู้ใช้ MySQL
-$DB_PASS = 'p5NU4Ecxvd5%y^fd';             // รหัสผ่าน MySQL
-$DB_NAME = 'espada_logistic';    // ชื่อฐานข้อมูล
+$DB_HOST = '';    // หรือ IP ของเซิร์ฟเวอร์
+$DB_USER = '';         // ชื่อผู้ใช้ MySQL
+$DB_PASS = '';             // รหัสผ่าน MySQL
+$DB_NAME = '';    // ชื่อฐานข้อมูล
 
 $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
 
